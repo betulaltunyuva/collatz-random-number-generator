@@ -1,235 +1,237 @@
-<div align="center">
+# Collatz Random Number Generator
 
-# 🔢 Collatz Random Number Generator
+![Tests](https://github.com/betulaltunyuva/collatz-random-number-generator/actions/workflows/tests.yml/badge.svg)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-### Deterministic Pseudo-Random Number Generation Based on the Collatz Sequence
+A deterministic pseudo-random number generator based on the Collatz sequence.
 
-This project explores how the irregular behavior of the Collatz sequence can be used to generate deterministic, random-like number sequences for educational purposes.
+This educational project explores whether values derived from Collatz sequences can be transformed into pseudo-random-looking numbers. It includes a command-line interface, CSV export, automated tests, statistical analysis, data visualization, and continuous integration.
 
-<br>
+> [!WARNING]
+> This generator is deterministic and is not cryptographically secure. It must not be used for passwords, encryption keys, authentication tokens, or other security-sensitive applications.
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Algorithm](https://img.shields.io/badge/Algorithm-Collatz-7C3AED?style=for-the-badge)
-![PRNG](https://img.shields.io/badge/Type-Pseudo--Random-0EA5E9?style=for-the-badge)
-![Purpose](https://img.shields.io/badge/Purpose-Educational-22C55E?style=for-the-badge)
+## Features
 
-</div>
+- Generates deterministic values from a positive integer seed
+- Applies optional 32-bit bit-mixing
+- Supports configurable output ranges and sampling steps
+- Limits the number of generated values
+- Exports generated values to CSV
+- Validates command-line parameters
+- Compares mixed and unmixed Collatz output with Python's random generator
+- Calculates statistical quality metrics
+- Produces a distribution comparison chart
+- Includes 11 automated unit tests
+- Runs tests automatically with GitHub Actions
+- Supports Python 3.10, 3.12, and 3.13
 
----
+## How It Works
 
-## 📖 About
+The standard Collatz rule is defined as:
 
-The Collatz Random Number Generator is a small educational project that uses the Collatz sequence to produce deterministic, random-like values.
+- If `n` is even, the next value is `n / 2`.
+- If `n` is odd, the next value is `3n + 1`.
+- The process continues until the sequence reaches `1`.
 
-Starting from a positive integer called a `seed`, the program generates a Collatz sequence, samples values at configurable intervals, and optionally applies a simple bit-mixing operation.
+The generator samples values from this sequence and maps them into the requested output range. By default, an additional deterministic bit-mixing operation is applied to reduce visible patterns in the raw sequence.
 
-Because the same seed always produces the same sequence, this generator is deterministic and reproducible.
+## Flowchart
 
-> This project is intended for algorithm exploration and educational use. It is not suitable for cryptographic or security-sensitive applications.
+![Collatz flowchart](collatz-flowchart.png)
 
----
-
-## 📌 Contents
-
-- [Key Features](#-key-features)
-- [Collatz Sequence](#-collatz-sequence)
-- [How It Works](#️-how-it-works)
-- [Algorithm Flowchart](#-algorithm-flowchart)
-- [Project Structure](#-project-structure)
-- [Requirements](#-requirements)
-- [Installation](#-installation)
-- [Usage](#️-usage)
-- [Parameters](#️-parameters)
-- [Limitations](#️-limitations)
-- [Future Improvements](#-future-improvements)
-- [Author](#-author)
-
----
-
-## ✨ Key Features
-
-- Generates values from the Collatz sequence
-- Supports configurable seed values
-- Supports interval-based sequence sampling
-- Includes optional bit mixing
-- Restricts generated values using the modulo operation
-- Produces reproducible results
-- Uses only the Python standard library
-- Demonstrates deterministic pseudo-random behavior
-
----
-
-## ➗ Collatz Sequence
-
-For a positive integer `n`, the Collatz rules are:
-
-- If `n` is even:
-
-```text
-n = n / 2
-```
-
-- If `n` is odd:
-
-```text
-n = 3n + 1
-```
-
-For example, starting with `n = 7` produces:
-
-```text
-7 → 22 → 11 → 34 → 17 → 52 → 26 → 13
-→ 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
-```
-
-The sequence appears irregular even though every step is fully deterministic.
-
----
-
-## ⚙️ How It Works
-
-1. The generator receives a positive seed value.
-2. A Collatz sequence is generated from the seed.
-3. Values are sampled from the sequence using the selected `step`.
-4. If mixing is enabled, XOR and bit-rotation operations are applied.
-5. The modulo operation restricts each value to the requested range.
-6. The generated values are returned as a list.
-
-The optional mixing operation uses a 32-bit internal state:
-
-```text
-state = state XOR sequence_value
-state = rotate_left(state, 5)
-result = state MOD output_limit
-```
-
----
-
-## 📊 Algorithm Flowchart
-
-The project includes a flowchart illustrating the main algorithm:
-
-![Collatz Random Number Generator Flowchart](collatz-flowchart.png)
-
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```text
 collatz-random-number-generator/
-├── collatz_rng.py
+├── .github/
+│   └── workflows/
+│       └── tests.yml
+├── images/
+│   └── distribution_comparison.png
+├── results/
+│   └── randomness_metrics.csv
+├── tests/
+│   └── test_collatz_rng.py
+├── .gitignore
+├── analyze_randomness.py
 ├── collatz-flowchart.png
-└── README.md
+├── collatz_rng.py
+├── README.md
+└── requirements.txt
 ```
 
----
-
-## 📋 Requirements
-
-- Python 3.10 or newer
-
-The project uses only the Python standard library. No additional packages are required.
-
----
-
-## 🚀 Installation
+## Installation
 
 Clone the repository:
 
 ```bash
 git clone https://github.com/betulaltunyuva/collatz-random-number-generator.git
-```
-
-Go to the project directory:
-
-```bash
 cd collatz-random-number-generator
 ```
 
----
+Install the required dependency:
 
-## ▶️ Usage
+```bash
+python -m pip install -r requirements.txt
+```
 
-Run the example included in the project:
+## Basic Usage
+
+Run the generator with its default settings:
 
 ```bash
 python collatz_rng.py
 ```
 
-The program demonstrates:
+Default configuration:
 
-- Repeated runs with the same seed
-- Results generated from a different seed
-- The effect of different sampling intervals
-- Output with and without bit mixing
+- Seed: `27`
+- Output range: `0–99`
+- Sampling step: `3`
+- Mixing: enabled
+- Generated values: all available sampled values
 
-The generator can also be imported into another Python file:
+## Command-Line Options
 
-```python
-from collatz_rng import collatz_rng
-
-numbers = collatz_rng(
-    seed=27,
-    mod=100,
-    step=3,
-    mix=True,
-)
-
-print(numbers[:10])
+```text
+--seed SEED       Positive integer used as the initial value
+--mod MOD         Upper bound of the output range
+--step STEP       Sampling interval within the Collatz sequence
+--limit LIMIT     Maximum number of Collatz operations
+--count COUNT     Maximum number of output values
+--no-mix          Disables the bit-mixing operation
+--output PATH     Exports generated values to a CSV file
 ```
 
----
+Display the built-in help message:
 
-## 🎛️ Parameters
+```bash
+python collatz_rng.py --help
+```
 
-| Parameter | Description | Default |
-|---|---|---|
-| `seed` | Positive integer used to start the sequence | Required |
-| `mod` | Upper boundary used by the modulo operation | `100` |
-| `step` | Sampling interval within the Collatz sequence | `3` |
-| `mix` | Enables or disables the bit-mixing operation | `True` |
+## Usage Examples
 
----
+Generate 10 values between 0 and 49:
 
-## ⚠️ Limitations
+```bash
+python collatz_rng.py --seed 31 --mod 50 --step 2 --count 10
+```
 
-- The generator is deterministic.
-- The same seed produces the same output.
-- Generated values are reproducible when the seed is known.
-- The output has not been validated as statistically random.
-- The algorithm is not cryptographically secure.
-- It must not be used for passwords, encryption keys, tokens, or security systems.
-- The sequence generation limit may stop processing before reaching `1` for certain inputs.
+Generate values without bit-mixing:
 
----
+```bash
+python collatz_rng.py --seed 27 --count 20 --no-mix
+```
 
-## 🔮 Future Improvements
+Generate values and export them to CSV:
 
-- Add statistical randomness tests
-- Add command-line arguments
-- Support configurable sequence limits
-- Compare results with standard pseudo-random generators
-- Add automated unit tests
-- Add output visualization
-- Analyze value distribution
-- Export generated sequences to CSV
+```bash
+python collatz_rng.py --seed 31 --mod 50 --step 2 --count 10 --output results/numbers.csv
+```
 
----
+## Statistical Analysis
 
-## 👩‍💻 Author
+Run the comparison script:
+
+```bash
+python analyze_randomness.py
+```
+
+The analysis compares:
+
+1. Collatz generator with mixing
+2. Collatz generator without mixing
+3. Python's seeded random generator
+
+It calculates the following metrics:
+
+- Value count
+- Mean
+- Standard deviation
+- Number of unique values
+- Output-range coverage
+- Normalized entropy
+- Chi-square statistic
+- Serial correlation
+
+The analysis uses seeds from `2` through `500`, an output range of `0–99`, and a sampling step of `1`.
+
+## Analysis Results
+
+| Generator | Mean | Std. Dev. | Coverage | Normalized Entropy | Chi-Square | Serial Correlation |
+|---|---:|---:|---:|---:|---:|---:|
+| Collatz with mixing | 49.6176 | 28.9583 | 1.0000 | 0.9976 | 599.4741 | -0.0037 |
+| Collatz without mixing | 41.0547 | 28.4713 | 1.0000 | 0.9329 | 16275.0201 | 0.4195 |
+| Python random | 49.7562 | 28.9184 | 1.0000 | 0.9995 | 118.2898 | 0.0106 |
+
+All three generators covered the complete output range. Bit-mixing substantially improved the Collatz generator's normalized entropy and reduced its serial correlation compared with the unmixed version.
+
+However, Python's random generator achieved a lower chi-square statistic and a distribution closer to uniformity. Therefore, the Collatz-based generator should be treated as an educational deterministic experiment rather than a replacement for established pseudo-random number generators.
+
+## Distribution Comparison
+
+![Distribution comparison](images/distribution_comparison.png)
+
+The complete metric output is available in:
+
+```text
+results/randomness_metrics.csv
+```
+
+## Running the Tests
+
+Run all 11 unit tests:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+The tests cover:
+
+- Even and odd Collatz operations
+- A known Collatz sequence
+- Deterministic output
+- Different seed behavior
+- Output-range validation
+- Output count limits
+- Optional mixing
+- Bit rotation
+- Invalid parameters
+- CSV export
+
+## Continuous Integration
+
+GitHub Actions automatically runs the following checks after every push and pull request to the `main` branch:
+
+- Unit tests
+- Command-line smoke test
+- Statistical-analysis smoke test
+
+The workflow tests the project with Python 3.10, 3.12, and 3.13.
+
+## Limitations
+
+- The output is completely deterministic.
+- The statistical results depend on the selected seeds and parameters.
+- Passing basic statistical measurements does not prove true randomness.
+- The generator is not suitable for cryptographic or security-related use.
+- Collatz sequence termination has not been mathematically proven for every positive integer.
+
+## Technologies
+
+- Python
+- Standard Library
+- Matplotlib
+- unittest
+- GitHub Actions
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+## Author
 
 **Betül Altunyuva**
 
-Software Engineering Student
-
-[GitHub Profile](https://github.com/betulaltunyuva)
-
----
-
-<div align="center">
-
-Developed for algorithm learning and experimentation.
-
-⭐ If you find the project useful, consider giving it a star.
-
-</div>
+- GitHub: [@betulaltunyuva](https://github.com/betulaltunyuva)
