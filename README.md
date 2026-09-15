@@ -13,32 +13,34 @@ This educational project explores whether values derived from Collatz sequences 
 
 ## Features
 
-- Generates deterministic values from a positive integer seed
-- Applies optional 32-bit bit-mixing
-- Supports configurable output ranges and sampling steps
-- Limits the number of generated values
-- Exports generated values to CSV
-- Validates command-line parameters
-- Compares mixed and unmixed Collatz output with Python's random generator
-- Calculates statistical quality metrics
-- Produces a distribution comparison chart
-- Includes 11 automated unit tests
-- Runs tests automatically with GitHub Actions
-- Supports Python 3.10, 3.12, and 3.13
+* Generates deterministic values from a positive integer seed
+* Applies optional 32-bit bit-mixing
+* Supports configurable output ranges and sampling steps
+* Limits the number of generated values
+* Exports generated values to CSV
+* Validates command-line parameters
+* Compares mixed and unmixed Collatz output with Python's random generator
+* Calculates statistical quality metrics
+* Produces a distribution comparison chart
+* Includes 11 automated unit tests
+* Runs tests automatically with GitHub Actions
+* Supports Python 3.10, 3.12, and 3.13
 
 ## How It Works
 
-The standard Collatz rule is defined as:
+The standard Collatz rule is defined as follows:
 
-- If `n` is even, the next value is `n / 2`.
-- If `n` is odd, the next value is `3n + 1`.
-- The process continues until the sequence reaches `1`.
+* If `n` is even, the next value is `n / 2`.
+* If `n` is odd, the next value is `3n + 1`.
+* The process continues until the sequence reaches `1`.
 
 The generator samples values from this sequence and maps them into the requested output range. By default, an additional deterministic bit-mixing operation is applied to reduce visible patterns in the raw sequence.
 
 ## Flowchart
 
-![Collatz flowchart](collatz-flowchart.png)
+<p align="center">
+  <img src="collatz-flowchart.png" alt="Collatz flowchart" width="550">
+</p>
 
 ## Project Structure
 
@@ -86,11 +88,11 @@ python collatz_rng.py
 
 Default configuration:
 
-- Seed: `27`
-- Output range: `0–99`
-- Sampling step: `3`
-- Mixing: enabled
-- Generated values: all available sampled values
+* Seed: `27`
+* Output range: `0–99`
+* Sampling step: `3`
+* Mixing: enabled
+* Generated values: all available sampled values
 
 ## Command-Line Options
 
@@ -146,24 +148,24 @@ The analysis compares:
 
 It calculates the following metrics:
 
-- Value count
-- Mean
-- Standard deviation
-- Number of unique values
-- Output-range coverage
-- Normalized entropy
-- Chi-square statistic
-- Serial correlation
+* Value count
+* Mean
+* Standard deviation
+* Number of unique values
+* Output-range coverage
+* Normalized entropy
+* Chi-square statistic
+* Serial correlation
 
 The analysis uses seeds from `2` through `500`, an output range of `0–99`, and a sampling step of `1`.
 
 ## Analysis Results
 
-| Generator | Mean | Std. Dev. | Coverage | Normalized Entropy | Chi-Square | Serial Correlation |
-|---|---:|---:|---:|---:|---:|---:|
-| Collatz with mixing | 49.6176 | 28.9583 | 1.0000 | 0.9976 | 599.4741 | -0.0037 |
-| Collatz without mixing | 41.0547 | 28.4713 | 1.0000 | 0.9329 | 16275.0201 | 0.4195 |
-| Python random | 49.7562 | 28.9184 | 1.0000 | 0.9995 | 118.2898 | 0.0106 |
+| Generator              |    Mean | Std. Dev. | Coverage | Normalized Entropy | Chi-Square | Serial Correlation |
+| ---------------------- | ------: | --------: | -------: | -----------------: | ---------: | -----------------: |
+| Collatz with mixing    | 49.6176 |   28.9583 |   1.0000 |             0.9976 |   599.4741 |            -0.0037 |
+| Collatz without mixing | 41.0547 |   28.4713 |   1.0000 |             0.9329 | 16275.0201 |             0.4195 |
+| Python random          | 49.7562 |   28.9184 |   1.0000 |             0.9995 |   118.2898 |             0.0106 |
 
 All three generators covered the complete output range. Bit-mixing substantially improved the Collatz generator's normalized entropy and reduced its serial correlation compared with the unmixed version.
 
@@ -171,7 +173,9 @@ However, Python's random generator achieved a lower chi-square statistic and a d
 
 ## Distribution Comparison
 
-![Distribution comparison](images/distribution_comparison.png)
+<p align="center">
+  <img src="images/distribution_comparison.png" alt="Distribution comparison" width="750">
+</p>
 
 The complete metric output is available in:
 
@@ -189,42 +193,42 @@ python -m unittest discover -s tests -v
 
 The tests cover:
 
-- Even and odd Collatz operations
-- A known Collatz sequence
-- Deterministic output
-- Different seed behavior
-- Output-range validation
-- Output count limits
-- Optional mixing
-- Bit rotation
-- Invalid parameters
-- CSV export
+* Even and odd Collatz operations
+* A known Collatz sequence
+* Deterministic output
+* Different seed behavior
+* Output-range validation
+* Output count limits
+* Optional mixing
+* Bit rotation
+* Invalid parameters
+* CSV export
 
 ## Continuous Integration
 
 GitHub Actions automatically runs the following checks after every push and pull request to the `main` branch:
 
-- Unit tests
-- Command-line smoke test
-- Statistical-analysis smoke test
+* Unit tests
+* Command-line smoke test
+* Statistical-analysis smoke test
 
 The workflow tests the project with Python 3.10, 3.12, and 3.13.
 
 ## Limitations
 
-- The output is completely deterministic.
-- The statistical results depend on the selected seeds and parameters.
-- Passing basic statistical measurements does not prove true randomness.
-- The generator is not suitable for cryptographic or security-related use.
-- Collatz sequence termination has not been mathematically proven for every positive integer.
+* The output is completely deterministic.
+* Statistical results depend on the selected seeds and parameters.
+* Passing basic statistical measurements does not prove true randomness.
+* The generator is not suitable for cryptographic or security-related use.
+* Collatz sequence termination has not been mathematically proven for every positive integer.
 
 ## Technologies
 
-- Python
-- Standard Library
-- Matplotlib
-- unittest
-- GitHub Actions
+* Python
+* Python Standard Library
+* Matplotlib
+* unittest
+* GitHub Actions
 
 ## License
 
@@ -234,4 +238,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 **Betül Altunyuva**
 
-- GitHub: [@betulaltunyuva](https://github.com/betulaltunyuva)
+* GitHub: [@betulaltunyuva](https://github.com/betulaltunyuva)
