@@ -174,7 +174,7 @@ However, Python's random generator achieved a lower chi-square statistic and a d
 ## Distribution Comparison
 
 <p align="center">
-  <img src="images/distribution_comparison.png" alt="Distribution comparison" width="750">
+  <img src="images/distribution_comparison.png" alt="Distribution comparison" width="700">
 </p>
 
 The complete metric output is available in:
